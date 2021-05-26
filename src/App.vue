@@ -18,6 +18,27 @@
   </el-header>
 
   <el-dialog title="发布话题" :visible="dialogVisible">
+    <el-form
+      :model="ruleForm"
+      ref="ruleForm"
+      label-width="100px"
+    >
+      <el-form-item label="标题" prop="title">
+        <el-input v-model="ruleForm.title"></el-input>
+      </el-form-item>
+      <el-form-item label="创建者" prop="author">
+        <el-input v-model="ruleForm.author"></el-input>
+      </el-form-item>
+      <el-form-item label="标签" prop="tag">
+        <el-select v-model="ruleForm.tag" placeholder="请选择">
+          <el-option v-for="item in options" :key="item.label" :label="item.label" :value="item.label"> </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="内容" prop="content">
+        <el-input type="textarea" v-model="ruleForm.content"></el-input>
+      </el-form-item>
+    </el-form>
+
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="onCancel()">取 消</el-button>
@@ -47,6 +68,23 @@ export default{
     return {
       dialogVisible:false,
       activeIndex:'home',
+      options: [
+        {
+          label: '精华'
+        },
+        {
+          label: '分享'
+        },
+        {
+          label: '问答'
+        }
+      ],
+      ruleForm:{
+        title: '',
+        author: '',
+        tag: '',
+        content: ''
+      }
     }
   },
   methods:{
