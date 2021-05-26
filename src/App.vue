@@ -97,6 +97,7 @@ export default {
   data() {
     return {
       dialogVisible: false,
+      isEdit:false,
       activeIndex: 'home',
       activeName: 'all',
       options: [
@@ -121,10 +122,16 @@ export default {
   },
   methods: {
     onCreate() {
+      this.isEdit = false;
       this.dialogVisible = true;
     },
     onCancel() {
       this.dialogVisible = false;
+    },
+    onEdit(row) {
+      this.isEdit = true;
+      this.ruleForm = { ...row };
+      this.dialogVisible = true;
     },
     async onConfirm() {
       this.dialogVisible = false;
@@ -135,7 +142,12 @@ export default {
         author: this.ruleForm.author,
         tag: this.ruleForm.tag
       };
-      await api.post('/posts', postData);
+      if (this.isEdit) {
+        postData.id = this.ruleForm.id;
+        await api.put(`/posts/${postData.id}`, postData);
+      } else {
+        await api.post('/posts', postData);
+      }
       this.dialogVisible = false;
       this.loadData();
     },
