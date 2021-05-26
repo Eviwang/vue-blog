@@ -13,9 +13,18 @@
       <el-menu-item index="getStart">新手入门</el-menu-item>
     </el-menu>
     <div>
-      <el-button type="primary" size="mini" @click="onCreate"> 发起话题 </el-button>
+      <el-button type="primary" size="mini" @click="onCreate()"> 发起话题 </el-button>
     </div>
   </el-header>
+
+  <el-dialog title="发布话题" :visible="dialogVisible">
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="onCancel()">取 消</el-button>
+        <el-button type="primary" @click="onConfirm()">确 定</el-button>
+      </span>
+    </template>
+  </el-dialog>
   </div>
 </template>
 <style scoped>
@@ -36,13 +45,19 @@ import api from './api/index';
 export default{
   data(){
     return {
+      dialogVisible:false,
       activeIndex:'home',
-
     }
   },
   methods:{
     onCreate(){
-      
+      this.dialogVisible = true;
+    },
+    onCancel(){
+      this.dialogVisible = false;
+    },
+    onConfirm(){
+      this.dialogVisible = false;
     }
   },
   async mounted(){
