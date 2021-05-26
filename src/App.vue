@@ -154,6 +154,10 @@ export default {
     async loadData(){
       const data = await api.get('posts');
       this.tableData = data.data;
+    },
+    async onDelete(id) {
+      await api.delete(`posts/${id}`);
+      this.loadData();
     }
   },
   mounted() {
