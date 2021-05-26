@@ -46,6 +46,16 @@
       </span>
     </template>
   </el-dialog>
+
+  <el-main class="main">
+    <el-tabs v-model="activeName">
+      <el-tab-pane label="全部" name="all">
+      </el-tab-pane>
+      <el-tab-pane label="精华" name="good">精华</el-tab-pane>
+      <el-tab-pane label="分享" name="shared">分享</el-tab-pane>
+      <el-tab-pane label="问答" name="question">问答</el-tab-pane>
+    </el-tabs>
+  </el-main>
   </div>
 </template>
 <style scoped>
@@ -59,6 +69,14 @@
   width: 960px;
   border-bottom: none !important;
 }
+
+.main {
+  width: 960px;
+  margin: auto;
+  background: white;
+  min-height: 600px;
+  margin-top: 16px;
+}
 </style>
 <script>
 import api from './api/index';
@@ -68,6 +86,7 @@ export default{
     return {
       dialogVisible:false,
       activeIndex:'home',
+      activeName:'all',
       options: [
         {
           label: '精华'
