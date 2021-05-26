@@ -1,0 +1,20 @@
+name: buildAndDeploy
+on:
+  push
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest # 我们选择使用最新的ubuntu系统
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2.3.1 # 将代码拷贝到虚机中
+
+    - name: Install and Build
+      run: |
+        npm ci
+        npm run build
+
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@4.1.3
+      with:
+        branch: gh-pages # 存放产物的分支名称
+        folder: ./ # 存放build后产物的目录
