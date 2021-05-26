@@ -126,13 +126,26 @@ export default {
     onCancel() {
       this.dialogVisible = false;
     },
-    onConfirm() {
+    async onConfirm() {
       this.dialogVisible = false;
+      const postData = {
+        id: Math.random(),
+        title: this.ruleForm.title,
+        content: this.ruleForm.content,
+        author: this.ruleForm.author,
+        tag: this.ruleForm.tag
+      };
+      await api.post('/posts', postData);
+      this.dialogVisible = false;
+      this.loadData();
+    },
+    async loadData(){
+      const data = await api.get('posts');
+      this.tableData = data.data;
     }
   },
-  async mounted() {
-    const data = await api.get('posts');
-    console.log('data', data.data);
+  mounted() {
+    this.loadData();
   }
 };
 </script>
