@@ -4,5 +4,12 @@
   </div>
 </template>
 <script>
+import api from './api/index';
 
+export default{
+  async mounted(){
+    const data = await api.get("posts");
+    console.log("data", data.data);
+  }
+}
 </script>
